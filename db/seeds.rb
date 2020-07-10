@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+account = Account.create(name: 'Want to watch')
+
+movie = Movie.create(name: 'Godfather', kind: 'other', account_id: 1)
+movie_two = Movie.create(name: 'Titanic', kind: 'other', account_id: 1)

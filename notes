@@ -1,0 +1,7 @@
+Account
+has_many :movies
+   :name - string
+
+Movies
+belongd_to :account
+   :name - string, :kind - string, :account_id - integer, 
