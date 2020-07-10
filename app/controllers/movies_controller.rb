@@ -3,8 +3,8 @@ class MoviesController < ApplicationController
 before_action :set_account
 
     def index
-       @movies = @account.movies
-       render json: @movies
+            @movies = Movie.all 
+            render json: @movies
     end 
 
     def create
@@ -17,7 +17,7 @@ before_action :set_account
     end 
 
     def show
-      @movies = Movie.find(params[:id)
+      @movies = Movie.find(params[:id])
       # @movies = @account.find_by(id: params[:id)
       render json: @movie
     end 
