@@ -10,7 +10,7 @@ before_action :set_account
     def create
         @movie = @account.movies.new(movie_params)
         if @movie.save 
-            render json: @movie 
+            render json: @account
         else
             render json: {error: 'Error creating account'}
         end
@@ -23,7 +23,10 @@ before_action :set_account
     end 
 
     def destroy
-    
+        @movie = Movie.find(params["id"])
+        @account = Account.find(@movie.account_id)
+        @movie.destroy
+        render json: @account
     end 
 
     def set_account
