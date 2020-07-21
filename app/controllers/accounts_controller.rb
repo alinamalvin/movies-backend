@@ -22,11 +22,13 @@ class AccountsController < ApplicationController
     def destroy
         @account = Account.find(params[:id])
         @account.destroy
+        @accounts = Account.all 
+        render json: @accounts
     end 
 
     private 
     
     def account_params
-        params.require(:account).permit(:name)
+        params.require(:account).permit(:name, :id)
     end 
 end
