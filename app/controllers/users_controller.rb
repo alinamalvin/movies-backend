@@ -15,7 +15,7 @@ class UsersController < ApplicationController
             render json: {error: 'Error creating account'}
         end 
     end 
-
+    
     private 
     
     def user_params 
