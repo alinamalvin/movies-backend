@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   get '/logout', to: 'sessions#destroy'
   get '/signup', to: 'users#new'
   post '/signup', to: 'users#create'
-  get '/profile', to: 'users#profile'
+  get '/profile', to: 'sessions#profile'
+  get '/logged_in', to: 'sessions#is_logged_in?'
 
   get '/auth/:provider/callback', to: 'sessions#create'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
