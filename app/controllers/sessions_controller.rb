@@ -2,8 +2,13 @@ class SessionsController < ApplicationController
   include ActionController::Cookies
 
     def profile
-      binding.pry
-      render json: {user: @user}
+      user_id = cookies[:user_id]
+      @current_user = User.find_by(id: user_id)
+      if @current_user.present? && @current_user.is_a?(User)
+        render json: {user: @current_user}
+      else
+        render json: {message: 'Bad user'}, status: 401
+      end
     end 
     
     def create
@@ -12,7 +17,6 @@ class SessionsController < ApplicationController
             .authenticate(params["user"]["password"])
         if @user
           session[:user_id] = @user.id
-          session[:user_id].freeze
           cookies[:user_id] = @user.id
           token = encode_token({ user_id: @user.id })
           render json: {user: @user, jwt: token}
@@ -23,13 +27,15 @@ class SessionsController < ApplicationController
 
     def destroy
         session.clear 
+        @delete_cookies={}
+        cookies.delete
         redirect_to '/'
     end 
 
     private 
     
     def user_params 
-        params.require(:user).permit(:name, :password)
+        params.require(:user).permit(:name, :password, :user_id)
     end 
 
     def encode_token(payload)
@@ -37,6 +43,10 @@ class SessionsController < ApplicationController
       JWT.encode(payload, 'my_s3cr3t')
     end
 
+    def find_user
+      user_id = cookies[:user_id]
+      @current_user = User.find_by(id: user_id)
+  end
 end
     
     

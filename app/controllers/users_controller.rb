@@ -1,4 +1,6 @@
 class UsersController < ApplicationController 
+    include ::ActionController::Cookies
+    before_action :find_user
 
     # GET /register = New User Action
     def new
